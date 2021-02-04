@@ -40,21 +40,27 @@ function render (){
 
 
 function initActions(){
-
+// create an empty array
 const favoriteBooks = [];
-
+  // find the list of books
   let booksList = document.querySelector(select.containerOf.booksList);
   console.log(booksList);
+  //find all images in this list
   let booksImages = booksList.querySelectorAll(select.bookItem.image);
   console.log(booksImages);
-
+    // make a loop to get image of one book
     for (let bookImage of booksImages){
       console.log(bookImage)
+      // add eventListener for bookImage
       bookImage.addEventListener('dblclick', function(event){
+        // delete preventDefault
         event.preventDefault();
+        // add class 'favorite'
         bookImage.classList.add(classNames.bookCart.imageFavorite);
+        // find 'data-id' of bookImage
         let id = bookImage.getAttribute('data-id');
         console.log(id)
+        // add 'data-id' to an empty array
         favoriteBooks.push(id);
       })
       console.log(favoriteBooks)
