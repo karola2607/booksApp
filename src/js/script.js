@@ -10,6 +10,9 @@
     },
     bookItem: {
       image: '.book__image',
+    },
+    filters: {
+      form: '.filters',
     }
   };
 
@@ -43,35 +46,47 @@
   function initActions(){
 
     const favoriteBooks = [];
+    const filters = [];
 
     let booksList = document.querySelector(select.containerOf.booksList);
     console.log(booksList);
-
     let booksImages = booksList.querySelectorAll(select.bookItem.image);
     console.log(booksImages);
 
+    const form = document.querySelector(select.filters.form);
+    console.log(form);
+
     booksList.addEventListener('click', function(event){
-        event.preventDefault();
+      event.preventDefault();
 
-        if (event.target.offsetParent.classList.contains(classNames.bookCart.bookClass)){
+      if (event.target.offsetParent.classList.contains(classNames.bookCart.bookClass)){
 
-          let id = event.target.offsetParent.getAttribute('data-id');
-          console.log(id);
+        let id = event.target.offsetParent.getAttribute('data-id');
+        console.log(id);
 
-          if (!favoriteBooks.includes(id) || event.target.offsetParent.classList.contains(!classNames.bookCart.imageFavorite)){
-            favoriteBooks.push(id);
-            event.target.offsetParent.classList.add(classNames.bookCart.imageFavorite);
-          }
-          else if (favoriteBooks.includes(id) || event.target.offsetParent.classList.contains(classNames.bookCart.imageFavorite)){
-            const indexOfId = favoriteBooks.indexOf(id);
-            favoriteBooks.splice(indexOfId, 1);
-            event.target.offsetParent.classList.remove(classNames.bookCart.imageFavorite);
-          }
-
-          console.log(favoriteBooks);
+        if (!favoriteBooks.includes(id) || event.target.offsetParent.classList.contains(!classNames.bookCart.imageFavorite)){
+          favoriteBooks.push(id);
+          event.target.offsetParent.classList.add(classNames.bookCart.imageFavorite);
         }
-      });
-    }
+        else if (favoriteBooks.includes(id) || event.target.offsetParent.classList.contains(classNames.bookCart.imageFavorite)){
+          const indexOfId = favoriteBooks.indexOf(id);
+          favoriteBooks.splice(indexOfId, 1);
+          event.target.offsetParent.classList.remove(classNames.bookCart.imageFavorite);
+        }
+
+        console.log(favoriteBooks);
+      }
+    });
+
+
+    form.addEventListener('click', function(event){
+      if (event.target.tagName == 'INPUT' && event.target.type == 'checkbox' && event.target.name == 'filter' ){
+        console.log(event.target.value);
+      }
+    });
+  }
+
+
 
 
 
