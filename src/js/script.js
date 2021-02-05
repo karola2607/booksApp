@@ -16,6 +16,7 @@
   const classNames = {
     bookCart: {
       imageFavorite: 'favorite',
+      bookClass: 'book__image',
     }
   };
 
@@ -49,13 +50,10 @@
     let booksImages = booksList.querySelectorAll(select.bookItem.image);
     console.log(booksImages);
 
-    for (let bookImage of booksImages){
-      console.log(bookImage);
-
-      booksList.addEventListener('click', function(event){
+    booksList.addEventListener('click', function(event){
         event.preventDefault();
 
-        if (event.target.offsetParent.classList.contains(select.bookItem.image)){
+        if (event.target.offsetParent.classList.contains(classNames.bookCart.bookClass)){
 
           let id = event.target.offsetParent.getAttribute('data-id');
           console.log(id);
@@ -74,7 +72,7 @@
         }
       });
     }
-  }
+
 
 
 
