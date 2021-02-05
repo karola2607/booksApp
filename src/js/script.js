@@ -40,35 +40,38 @@
 
 
   function initActions(){
-    // create an empty array
+
     const favoriteBooks = [];
-    // find the list of books
+
     let booksList = document.querySelector(select.containerOf.booksList);
     console.log(booksList);
-    //find all images in this list
+
     let booksImages = booksList.querySelectorAll(select.bookItem.image);
     console.log(booksImages);
-    // make a loop to get image of one book
+
     for (let bookImage of booksImages){
       console.log(bookImage);
-      // add eventListener for bookImage
-      bookImage.addEventListener('click', function(event){
-        // delete preventDefault
+
+      booksList.addEventListener('click', function(event){
         event.preventDefault();
-        // find 'data-id' of bookImage
-        let id = bookImage.getAttribute('data-id');
-        console.log(id);
-        // add 'data-id' to an empty array
-        if (!favoriteBooks.includes(id) || bookImage.classList.contains(!classNames.bookCart.imageFavorite) ){
-          favoriteBooks.push(id);
-          bookImage.classList.add(classNames.bookCart.imageFavorite);
+
+        if (event.target.offsetParent.classList.contains(select.bookItem.image)){
+
+          let id = event.target.offsetParent.getAttribute('data-id');
+          console.log(id);
+
+          if (!favoriteBooks.includes(id) || event.target.offsetParent.classList.contains(!classNames.bookCart.imageFavorite)){
+            favoriteBooks.push(id);
+            event.target.offsetParent.classList.add(classNames.bookCart.imageFavorite);
+          }
+          else if (favoriteBooks.includes(id) || event.target.offsetParent.classList.contains(classNames.bookCart.imageFavorite)){
+            const indexOfId = favoriteBooks.indexOf(id);
+            favoriteBooks.splice(indexOfId, 1);
+            event.target.offsetParent.classList.remove(classNames.bookCart.imageFavorite);
+          }
+
+          console.log(favoriteBooks);
         }
-        else if (favoriteBooks.includes(id) || bookImage.classList.contains(classNames.bookCart.imageFavorite)){
-          const indexOfId = favoriteBooks.indexOf(id);
-          favoriteBooks.splice(indexOfId, 1);
-          bookImage.classList.remove(classNames.bookCart.imageFavorite);
-        }
-        console.log(favoriteBooks);
       });
     }
   }
