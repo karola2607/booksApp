@@ -40,18 +40,15 @@
     }
   }
 
-
+  const filters = [];
 
 
   function initActions(){
 
     const favoriteBooks = [];
-    const filters = [];
 
     let booksList = document.querySelector(select.containerOf.booksList);
     console.log(booksList);
-    let booksImages = booksList.querySelectorAll(select.bookItem.image);
-    console.log(booksImages);
 
     const form = document.querySelector(select.filters.form);
     console.log(form);
@@ -82,9 +79,44 @@
     form.addEventListener('click', function(event){
       if (event.target.tagName == 'INPUT' && event.target.type == 'checkbox' && event.target.name == 'filter' ){
         console.log(event.target.value);
+        if (event.target.checked == true){
+          filters.push(event.target.value);
+        }
+        else if (event.target.checked == false){
+          const indexOfFilters = filters.indexOf(event.target.value);
+          filters.splice(indexOfFilters, 1);
+        }
+        console.log(filters);
+        filterBooks();
       }
     });
   }
+
+  function filterBooks(){
+    for(let book of dataSource.books){
+      let shouldBeHidden = false;
+      for (const filter of filters){
+        if (!book.details[filter]){
+          shouldBeHidden = true;
+          break;
+        }
+      if (shouldBeHidden = true){
+          let id = book.id;
+          console.log(id);
+          let item = select.bookItem.image['id'];
+          item.classList.add('hidden');
+        }
+        else if (shouldBeHidden= false){
+          let id = book.id;
+          let item = select.bookItem.image['id'];
+          item.classList.remove('hidden');
+        }
+      }
+    }
+  }
+
+
+
 
 
 
