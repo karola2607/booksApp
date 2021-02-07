@@ -100,17 +100,17 @@
           shouldBeHidden = true;
           break;
         }
-      if (shouldBeHidden = true){
-          let id = book.id;
+      }
+        if (shouldBeHidden == true){
+          const id = book.id;
           console.log(id);
-          let item = select.bookItem.image['id'];
+          const item = document.querySelector('.book__image[data-id="' + id + '"]');
           item.classList.add('hidden');
         }
-        else if (shouldBeHidden= false){
-          let id = book.id;
-          let item = select.bookItem.image['id'];
+        else if (shouldBeHidden == false){
+          const id = book.id;
+          const item = document.querySelector('.book__image[data-id="' + id + '"]');
           item.classList.remove('hidden');
-        }
       }
     }
   }
