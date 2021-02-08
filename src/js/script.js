@@ -27,10 +27,14 @@
 
   function render (){
     for (let book of dataSource.books){
+      let rating = book.rating;
+      const ratingBgc = determineRatingBgc(rating);
+      const ratingWidth = rating * 10;
       // make a template for a book
       const bookTemplate = Handlebars.compile(document.querySelector(select.templateOf.bookCart).innerHTML);
       // generate HTML from template
       const generatedHTML = bookTemplate(book);
+      console.log(generatedHTML)
       // create DOM element
       const bookElement = utils.createDOMFromHTML(generatedHTML);
       // find a list of books
@@ -102,7 +106,6 @@
         }
       }
       const id = book.id;
-      console.log(id);
       const item = document.querySelector('.book__image[data-id="' + id + '"]');
 
       if (shouldBeHidden == true){
@@ -111,6 +114,18 @@
       else if (shouldBeHidden == false){
         item.classList.remove('hidden');
       }
+    }
+  }
+
+  function determineRatingBgc(rating){
+    if (rating < 6){
+    ratingBgC = "linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)";
+    } else if (rating > 6 && rating <= 8){
+    ratingBgC = "linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)";
+    } else if (rating > 8 && rating <= 9){
+    ratingBgc = "linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)";
+    } else if (rating > 9){
+    ratingBgC = "linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)";
     }
   }
 
