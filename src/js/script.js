@@ -101,16 +101,15 @@
           break;
         }
       }
-        if (shouldBeHidden == true){
-          const id = book.id;
-          console.log(id);
-          const item = document.querySelector('.book__image[data-id="' + id + '"]');
-          item.classList.add('hidden');
-        }
-        else if (shouldBeHidden == false){
-          const id = book.id;
-          const item = document.querySelector('.book__image[data-id="' + id + '"]');
-          item.classList.remove('hidden');
+      const id = book.id;
+      console.log(id);
+      const item = document.querySelector('.book__image[data-id="' + id + '"]');
+
+      if (shouldBeHidden == true){
+        item.classList.add('hidden');
+      }
+      else if (shouldBeHidden == false){
+        item.classList.remove('hidden');
       }
     }
   }
