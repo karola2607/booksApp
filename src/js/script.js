@@ -25,26 +25,28 @@
 
 
   class BooksList {
-    constructor(data, element){
+    constructor(data){
       const thisBooksList = this;
       thisBooksList.data = data;
 
       thisBooksList.filters = [];
 
       thisBooksList.initData();
-      thisBooksList.getElements(element);
+      thisBooksList.getElements();
       thisBooksList.initActions();
     }
 
-    initData(element){
+    initData(){
       const thisBooksList = this;
       thisBooksList.data = dataSource.books;
 
       for (let book of thisBooksList.data){
-
         let rating = book.rating;
-        thisBooksList.ratingBgc = thisBooksList.determineRatingBgc(rating);
-        thisBooksList.ratingWidth = rating * 10;
+
+        book.ratingBgc = thisBooksList.determineRatingBgc(rating);
+        console.log(book.ratingBgc)
+        book.ratingWidth = rating * 10;
+
 
         // make a template for a book
         const bookTemplate = Handlebars.compile(document.querySelector(select.templateOf.bookCart).innerHTML);
@@ -61,16 +63,12 @@
       }
     }
 
-    getElements(element){
+    getElements(){
       const thisBooksList = this;
 
-      thisBooksList.dom = {};
+      thisBooksList.booksList = document.querySelector(select.containerOf.booksList);
 
-      thisBooksList.dom.wrapper = element;
-
-      thisBooksList.dom.booksList = thisBooksList.document.querySelector(select.containerOf.booksList);
-      console.log(thisBooksList.dom.booksList);
-      thisBooksList.dom.form = thisBooksList.dom.wrapper.querySelector(select.filters.form);
+      thisBooksList.form = document.querySelector(select.filters.form);
     }
 
 
@@ -80,7 +78,7 @@
 
       const favoriteBooks = [];
 
-      thisBooksList.dom.booksList.addEventListener('click', function(event){
+      thisBooksList.booksList.addEventListener('click', function(event){
         event.preventDefault();
 
         if (event.target.offsetParent.classList.contains(classNames.bookCart.bookClass)){
@@ -103,7 +101,7 @@
       });
 
 
-      thisBooksList.dom.form.addEventListener('click', function(event){
+      thisBooksList.form.addEventListener('click', function(event){
 
         if (event.target.tagName == 'INPUT' && event.target.type == 'checkbox' && event.target.name == 'filter' ){
           console.log(event.target.value);
@@ -157,6 +155,7 @@
       } else if (rating > 9){
         thisBooksList.ratingBgC = 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
       }
+      return thisBooksList.ratingBgc;
     }
   }
 
