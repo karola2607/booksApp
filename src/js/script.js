@@ -29,11 +29,13 @@
       const thisBooksList = this;
       thisBooksList.data = data;
 
+      console.log(element);
+
       thisBooksList.filters = [];
 
       thisBooksList.initData();
-      thisBooksList.getElements(element);
       thisBooksList.render();
+      thisBooksList.getElements(element);
       thisBooksList.initActions();
     }
 
@@ -42,39 +44,43 @@
       thisBooksList.data = dataSource.books;
     }
 
+    getElements(element){
+      const thisBooksList = this;
+
+      thisBooksList.dom = {};
+
+      thisBooksList.dom.wrapper = element;
+
+      thisBooksList.dom.booksList = thisBooksList.document.querySelector(select.containerOf.booksList);
+      console.log(thisBooksList.dom.booksList);
+      thisBooksList.dom.form = thisBooksList.dom.wrapper.querySelector(select.filters.form);
+    }
+
     render (){
       const thisBooksList = this;
 
       for (let book of thisBooksList.data){
+
         let rating = book.rating;
         thisBooksList.ratingBgc = thisBooksList.determineRatingBgc(rating);
         thisBooksList.ratingWidth = rating * 10;
+
         // make a template for a book
         const bookTemplate = Handlebars.compile(document.querySelector(select.templateOf.bookCart).innerHTML);
         // generate HTML from template
         const generatedHTML = bookTemplate(book);
         console.log(generatedHTML);
         // create DOM element
-        const bookElement = utils.createDOMFromHTML(generatedHTML);
+        thisBooksList.element = utils.createDOMFromHTML(generatedHTML);
+        console.log(thisBooksList.element);
         const bookContainer = document.querySelector(select.containerOf.booksList);
         // add element to list
-        thisBooksList.dom.booksList.appendChild(bookElement);
+        bookContainer.appendChild(thisBooksList.element);
       }
     }
 
 
-    getElements(element){
-      const thisBooksList = this;
 
-
-      thisBooksList.dom = {};
-
-      thisBooksList.dom.wrapper = element;
-
-      thisBooksList.dom.booksList = thisBooksList.dom.wrapper.querySelector(select.containerOf.booksList);
-      console.log(thisBooksList.dom.booksList)
-      thisBooksList.dom.form = thisBooksList.dom.wrapper.querySelector(select.filters.form);
-    }
 
     initActions(){
       const thisBooksList = this;
@@ -161,6 +167,10 @@
     }
   }
 
-  const app = new BooksList();
-
+  const app = {
+    initProject: function(){
+      new BooksList();
+    }
+  };
+  app.initProject();
 }
