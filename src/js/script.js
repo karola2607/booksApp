@@ -40,12 +40,13 @@
       const thisBooksList = this;
       thisBooksList.data = dataSource.books;
 
-      for (let book of thisBooksList.data){
-        let rating = book.rating;
+      for (const book of thisBooksList.data){
+        const rating = book.rating;
 
         book.ratingBgc = thisBooksList.determineRatingBgc(rating);
-        console.log(book.ratingBgc)
+        console.log(book.ratingBgc);
         book.ratingWidth = rating * 10;
+        console.log(book.ratingWidth);
 
 
         // make a template for a book
@@ -147,22 +148,23 @@
       const thisBooksList = this;
 
       if (rating < 6){
-        thisBooksList.ratingBgC = 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
+        thisBooksList.background = 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
       } else if (rating > 6 && rating <= 8){
-        thisBooksList.ratingBgC = 'linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
+        thisBooksList.background = 'linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
       } else if (rating > 8 && rating <= 9){
-        thisBooksList.ratingBgc = 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
+        thisBooksList.background = 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
       } else if (rating > 9){
-        thisBooksList.ratingBgC = 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
+        thisBooksList.background = 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
       }
-      return thisBooksList.ratingBgc;
+      return thisBooksList.background;
     }
+
+
   }
 
   const app = {
     initProject: function(){
-      const thisBooksList = this;
-      new BooksList(thisBooksList.element);
+      new BooksList();
     }
   };
   app.initProject();
