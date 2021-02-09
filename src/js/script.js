@@ -36,7 +36,7 @@
       thisBooksList.initActions();
     }
 
-    initData(){
+    initData(element){
       const thisBooksList = this;
       thisBooksList.data = dataSource.books;
 
@@ -54,6 +54,7 @@
         // create DOM element
         thisBooksList.element = utils.createDOMFromHTML(generatedHTML);
         console.log(thisBooksList.element);
+
         const bookContainer = document.querySelector(select.containerOf.booksList);
         // add element to list
         bookContainer.appendChild(thisBooksList.element);
@@ -161,7 +162,8 @@
 
   const app = {
     initProject: function(){
-      new BooksList();
+      const thisBooksList = this;
+      new BooksList(thisBooksList.element);
     }
   };
   app.initProject();
