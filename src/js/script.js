@@ -29,12 +29,9 @@
       const thisBooksList = this;
       thisBooksList.data = data;
 
-      console.log(element);
-
       thisBooksList.filters = [];
 
       thisBooksList.initData();
-      thisBooksList.render();
       thisBooksList.getElements(element);
       thisBooksList.initActions();
     }
@@ -42,22 +39,6 @@
     initData(){
       const thisBooksList = this;
       thisBooksList.data = dataSource.books;
-    }
-
-    getElements(element){
-      const thisBooksList = this;
-
-      thisBooksList.dom = {};
-
-      thisBooksList.dom.wrapper = element;
-
-      thisBooksList.dom.booksList = thisBooksList.document.querySelector(select.containerOf.booksList);
-      console.log(thisBooksList.dom.booksList);
-      thisBooksList.dom.form = thisBooksList.dom.wrapper.querySelector(select.filters.form);
-    }
-
-    render (){
-      const thisBooksList = this;
 
       for (let book of thisBooksList.data){
 
@@ -79,6 +60,17 @@
       }
     }
 
+    getElements(element){
+      const thisBooksList = this;
+
+      thisBooksList.dom = {};
+
+      thisBooksList.dom.wrapper = element;
+
+      thisBooksList.dom.booksList = thisBooksList.document.querySelector(select.containerOf.booksList);
+      console.log(thisBooksList.dom.booksList);
+      thisBooksList.dom.form = thisBooksList.dom.wrapper.querySelector(select.filters.form);
+    }
 
 
 
